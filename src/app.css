@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gray-950: var(--g-950);
+  --color-gray-900: var(--g-900);
+  --color-gray-800: var(--g-800);
+  --color-gray-700: var(--g-700);
+  --color-gray-600: var(--g-600);
+  --color-gray-500: var(--g-500);
+  --color-gray-400: var(--g-400);
+  --color-gray-300: var(--g-300);
+  --color-gray-200: var(--g-200);
+  --color-gray-100: var(--g-100);
+  --color-gray-50: var(--g-50);
+
+  --color-diff-add-bg: var(--da-bg);
+  --color-diff-add-text: var(--da-text);
+  --color-diff-add-marker: var(--da-mark);
+  --color-diff-remove-bg: var(--dr-bg);
+  --color-diff-remove-text: var(--dr-text);
+  --color-diff-remove-marker: var(--dr-mark);
+
+  --color-badge-clean-bg: var(--bc-bg);
+  --color-badge-clean-text: var(--bc-text);
+  --color-badge-dirty-bg: var(--bd-bg);
+  --color-badge-dirty-text: var(--bd-text);
+  --color-badge-ahead-bg: var(--ba-bg);
+  --color-badge-ahead-text: var(--ba-text);
+  --color-badge-behind-bg: var(--bb-bg);
+  --color-badge-behind-text: var(--bb-text);
+  --color-badge-diverged-bg: var(--bv-bg);
+  --color-badge-diverged-text: var(--bv-text);
+}
+
+:root {
+  --g-950: #030712;
+  --g-900: #111827;
+  --g-800: #1f2937;
+  --g-700: #374151;
+  --g-600: #4b5563;
+  --g-500: #6b7280;
+  --g-400: #9ca3af;
+  --g-300: #d1d5db;
+  --g-200: #e5e7eb;
+  --g-100: #f3f4f6;
+  --g-50: #f9fafb;
+
+  --da-bg: #14532d33;
+  --da-text: #86efac;
+  --da-mark: #22c55e;
+  --dr-bg: #7f1d1d33;
+  --dr-text: #fca5a5;
+  --dr-mark: #ef4444;
+
+  --bc-bg: #14532d80;
+  --bc-text: #86efac;
+  --bd-bg: #78350f80;
+  --bd-text: #fcd34d;
+  --ba-bg: #1e3a5f80;
+  --ba-text: #93c5fd;
+  --bb-bg: #7f1d1d80;
+  --bb-text: #fca5a5;
+  --bv-bg: #7c2d1280;
+  --bv-text: #fb923c;
+}
+
+:root.light {
+  --g-950: #f9fafb;
+  --g-900: #f3f4f6;
+  --g-800: #e5e7eb;
+  --g-700: #d1d5db;
+  --g-600: #9ca3af;
+  --g-500: #6b7280;
+  --g-400: #4b5563;
+  --g-300: #374151;
+  --g-200: #1f2937;
+  --g-100: #111827;
+  --g-50: #030712;
+
+  --da-bg: #dcfce7;
+  --da-text: #15803d;
+  --da-mark: #16a34a;
+  --dr-bg: #fee2e2;
+  --dr-text: #b91c1c;
+  --dr-mark: #dc2626;
+
+  --bc-bg: #dcfce7;
+  --bc-text: #15803d;
+  --bd-bg: #fef3c7;
+  --bd-text: #92400e;
+  --ba-bg: #dbeafe;
+  --ba-text: #1d4ed8;
+  --bb-bg: #fee2e2;
+  --bb-text: #b91c1c;
+  --bv-bg: #ffedd5;
+  --bv-text: #c2410c;
+}
