@@ -45,18 +45,21 @@
     committing = false;
   }
 
-  function handleKeydown(e: KeyboardEvent) {
-    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-      e.preventDefault();
-      handleCommit();
-    }
-    if (e.key === 'Escape') {
-      onCancel();
-    }
-  }
+  $effect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        handleCommit();
+      } else if (e.key === 'Escape') {
+        onCancel();
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  });
 </script>
 
-<form class="border-t border-gray-800 bg-gray-900 p-4" onkeydown={handleKeydown} onsubmit={(e) => { e.preventDefault(); handleCommit(); }}>
+<form class="border-t border-gray-800 bg-gray-900 p-4" onsubmit={(e) => { e.preventDefault(); handleCommit(); }}>
   {#if error}
     <div class="mb-3 rounded-lg border border-red-800 bg-red-900/30 px-3 py-2 text-xs text-red-300">
       {error}
