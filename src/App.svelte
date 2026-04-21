@@ -166,7 +166,7 @@
     </div>
 
     <div class="flex-1 overflow-y-auto p-2">
-      {#if isScanning}
+      {#if isScanning && treeNodes.length === 0}
         <div class="flex flex-col items-center justify-center gap-3 py-12">
           <div
             class="h-8 w-8 animate-spin rounded-full border-2 border-blue-500 border-t-transparent"
