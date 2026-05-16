@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-05-16
+
 ### Added
 - Folder tree scanner that walks up to depth 10 and identifies git repos by `.git` presence (file or directory, so worktrees and submodules are detected).
 - Per-repo status with precedence: dirty > diverged > ahead > behind > no-remote > clean.
