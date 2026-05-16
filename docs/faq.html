@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ — Git Explorer</title>
+<meta name="description" content="Common questions about Git Explorer: why unsigned, why macOS only, where config lives, how to report bugs.">
+<link rel="icon" href="assets/favicon.ico">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="./">
+      <img src="assets/icon.png" alt="">
+      Git Explorer
+    </a>
+    <nav class="nav">
+      <a href="getting-started.html" class="active">Docs</a>
+      <a href="https://github.com/WalrusQuant/git-explorer">GitHub</a>
+      <a href="https://github.com/WalrusQuant/git-explorer/releases">Download</a>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <div class="docs">
+    <aside class="docs-nav">
+      <a href="getting-started.html">Getting started</a>
+      <a href="keyboard-shortcuts.html">Keyboard shortcuts</a>
+      <a href="faq.html" class="active">FAQ</a>
+    </aside>
+
+    <main class="docs-content">
+      <h1>FAQ</h1>
+
+      <h2>Why is the app unsigned?</h2>
+      <p>Apple's Developer Program costs $99/year and is required for code signing and notarization. For an early-stage personal project, that's not justified yet. The trade-off is the one-time right-click → Open dance on first launch. Future releases will be signed once usage warrants it.</p>
+
+      <h2>Why macOS only?</h2>
+      <p>It's the platform the author uses every day. Tauri makes cross-platform builds possible in principle, but each target adds its own packaging, testing, and support overhead. Windows and Linux are not planned right now.</p>
+
+      <h2>Where is my data stored?</h2>
+      <p>Git Explorer reads your git repos directly — it doesn't make copies, doesn't sync, and doesn't talk to any server other than the remotes you've configured in those repos. The only file it writes is:</p>
+      <pre><code>~/.config/git-explorer/config.json</code></pre>
+      <p>That file contains a single field, <code>root_path</code>, which is the folder you chose on first launch.</p>
+
+      <h2>How do I reset the config?</h2>
+      <p>Delete the file:</p>
+      <pre><code>rm ~/.config/git-explorer/config.json</code></pre>
+      <p>The next launch will prompt you to pick a root directory again.</p>
+
+      <h2>How do I update?</h2>
+      <p>There's no auto-updater yet. Watch the <a href="https://github.com/WalrusQuant/git-explorer/releases">Releases page</a> or star the repo for notifications. When a new version drops, download the new <code>.dmg</code> and drag it over the old app — your config is preserved.</p>
+
+      <h2>Does it support SSH keys / credential helpers / 2FA?</h2>
+      <p>Yes. Network operations (<code>fetch</code>, <code>push</code>, <code>pull</code>, <code>merge</code>) shell out to your system <code>git</code> binary, so whatever your terminal can do, the app can do.</p>
+
+      <h2>Can I cancel a long-running fetch or push?</h2>
+      <p>Yes. The same operation that started it shows a cancel button. Cancelling sends <code>SIGTERM</code> to the underlying <code>git</code> process.</p>
+
+      <h2>It detected a folder I don't want / missed one I do want</h2>
+      <p>A folder is considered a repo if it contains a <code>.git</code> entry — a directory, a worktree pointer file, or a submodule pointer file. If a project isn't showing up, check that <code>.git</code> exists at the expected level (Git Explorer walks up to 10 directories deep from your root).</p>
+
+      <h2>How do I report a bug or request a feature?</h2>
+      <p><a href="https://github.com/WalrusQuant/git-explorer/issues/new">Open an issue on GitHub</a>. Include your macOS version, what you were doing, and any error messages. Diagnostic logs can be enabled with:</p>
+      <pre><code>RUST_LOG=git_explorer_lib=debug open -a "Git Explorer"</code></pre>
+
+      <h2>What's the license?</h2>
+      <p>Apache 2.0. See the <a href="https://github.com/WalrusQuant/git-explorer/blob/main/LICENSE">LICENSE</a> file.</p>
+    </main>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© 2026 Adam Wickwire · Apache 2.0</div>
+    <div class="footer-links">
+      <a href="getting-started.html">Docs</a>
+      <a href="faq.html">FAQ</a>
+      <a href="https://github.com/WalrusQuant/git-explorer">Source</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

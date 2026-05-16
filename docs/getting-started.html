@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getting started — Git Explorer</title>
+<meta name="description" content="Install Git Explorer on macOS, get past the unsigned-app warning, and pick a root directory to scan.">
+<link rel="icon" href="assets/favicon.ico">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="./">
+      <img src="assets/icon.png" alt="">
+      Git Explorer
+    </a>
+    <nav class="nav">
+      <a href="getting-started.html" class="active">Docs</a>
+      <a href="https://github.com/WalrusQuant/git-explorer">GitHub</a>
+      <a href="https://github.com/WalrusQuant/git-explorer/releases">Download</a>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <div class="docs">
+    <aside class="docs-nav">
+      <a href="getting-started.html" class="active">Getting started</a>
+      <a href="keyboard-shortcuts.html">Keyboard shortcuts</a>
+      <a href="faq.html">FAQ</a>
+    </aside>
+
+    <main class="docs-content">
+      <h1>Getting started</h1>
+      <p>Git Explorer is a single-window macOS app. There's no account, no telemetry, and nothing to configure beyond pointing it at the folder your projects live in.</p>
+
+      <h2>Install</h2>
+      <ol>
+        <li>Download the right <code>.dmg</code> from the <a href="https://github.com/WalrusQuant/git-explorer/releases/latest">latest release</a>:
+          <ul>
+            <li><code>git-explorer-macos-aarch64.dmg</code> — Apple Silicon (M1 and later)</li>
+            <li><code>git-explorer-macos-x86_64.dmg</code> — Intel Macs</li>
+          </ul>
+        </li>
+        <li>Open the <code>.dmg</code> and drag <strong>Git Explorer</strong> into <code>/Applications</code>.</li>
+        <li>Eject the disk image.</li>
+      </ol>
+
+      <h2>First launch</h2>
+      <p>The first release is <strong>unsigned</strong>. macOS Gatekeeper will refuse a normal double-click with "Git Explorer can't be opened because it is from an unidentified developer."</p>
+      <p>To get past it once:</p>
+      <ol>
+        <li>Open <code>/Applications</code> in Finder.</li>
+        <li><strong>Right-click</strong> (or Control-click) on <em>Git Explorer</em> and choose <strong>Open</strong>.</li>
+        <li>Click <strong>Open</strong> in the confirmation dialog.</li>
+      </ol>
+      <p>From then on, a normal double-click works. If you'd rather skip the right-click step, run this once in Terminal:</p>
+<pre><code>xattr -d com.apple.quarantine /Applications/Git\ Explorer.app</code></pre>
+
+      <h2>Pick a root directory</h2>
+      <p>On first launch the app will ask for a <strong>root directory</strong>. Point it at the folder that contains your projects — typically <code>~/Code</code>, <code>~/Projects</code>, or similar.</p>
+      <p>Git Explorer walks up to 10 levels deep from that root, skips dotfile directories, and lists every folder that contains a <code>.git</code> entry (regular repo, worktree, or submodule).</p>
+      <p>Your choice is saved to <code>~/.config/git-explorer/config.json</code> as a single field:</p>
+<pre><code>{
+  "root_path": "/Users/you/Code"
+}</code></pre>
+
+      <h2>Reading the tree</h2>
+      <p>Each repo in the tree has a colored dot indicating its state:</p>
+      <table>
+        <thead><tr><th>Color</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><span class="dot clean" style="display:inline-block"></span> Green</td><td>Clean — no changes, up to date</td></tr>
+          <tr><td><span class="dot dirty" style="display:inline-block"></span> Yellow</td><td>Dirty — uncommitted changes (staged, unstaged, or untracked)</td></tr>
+          <tr><td><span class="dot ahead" style="display:inline-block"></span> Blue</td><td>Ahead of remote — local commits not pushed</td></tr>
+          <tr><td><span class="dot behind" style="display:inline-block"></span> Red</td><td>Behind remote — remote commits not pulled</td></tr>
+          <tr><td><span class="dot diverged" style="display:inline-block"></span> Orange</td><td>Diverged — both ahead and behind</td></tr>
+        </tbody>
+      </table>
+      <p>The precedence is <code>dirty &gt; diverged &gt; ahead &gt; behind &gt; clean</code>. A repo with both staged and unpushed work shows yellow.</p>
+
+      <h2>What's next</h2>
+      <ul>
+        <li>See the <a href="keyboard-shortcuts.html">keyboard shortcuts</a>.</li>
+        <li>Read the <a href="faq.html">FAQ</a> for common questions about signing, config, and bug reports.</li>
+        <li>File an issue or contribute on <a href="https://github.com/WalrusQuant/git-explorer">GitHub</a>.</li>
+      </ul>
+    </main>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© 2026 Adam Wickwire · Apache 2.0</div>
+    <div class="footer-links">
+      <a href="getting-started.html">Docs</a>
+      <a href="faq.html">FAQ</a>
+      <a href="https://github.com/WalrusQuant/git-explorer">Source</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

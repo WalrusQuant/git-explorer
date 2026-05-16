@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git Explorer — see every repo at a glance on macOS</title>
+<meta name="description" content="A macOS desktop app that shows your git repos as a folder tree with status, diffs, and one-click staging. Built with Tauri and Rust.">
+<link rel="icon" href="assets/favicon.ico">
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Git Explorer">
+<meta property="og:description" content="See every repo at a glance on macOS.">
+<meta property="og:image" content="assets/screenshot.png">
+<meta property="og:type" content="website">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="./">
+      <img src="assets/icon.png" alt="">
+      Git Explorer
+    </a>
+    <nav class="nav">
+      <a href="getting-started.html">Docs</a>
+      <a href="https://github.com/WalrusQuant/git-explorer">GitHub</a>
+      <a href="https://github.com/WalrusQuant/git-explorer/releases">Download</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>See every repo at a glance.</h1>
+    <p class="subtitle">A macOS desktop app that turns your projects folder into a navigable tree of git repos, with status, diffs, and one-click staging.</p>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://github.com/WalrusQuant/git-explorer/releases/latest/download/git-explorer-macos-aarch64.dmg">
+        Download for Mac
+      </a>
+      <a class="btn" href="https://github.com/WalrusQuant/git-explorer/releases/latest/download/git-explorer-macos-x86_64.dmg">
+        Intel Mac
+      </a>
+    </div>
+    <p class="hero-meta">macOS 12+ · Free · Open source</p>
+
+    <div class="callout">
+      <strong>First launch on macOS?</strong> The app is unsigned, so Gatekeeper will block it. Right-click the app in <code>/Applications</code> and choose <em>Open</em> — just once.
+    </div>
+
+    <div class="hero-shot">
+      <img src="assets/screenshot.png" alt="Git Explorer main view: folder tree on the left, repo detail on the right">
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="container">
+    <h2>What it does</h2>
+    <p class="lead">A single window for every repo in your projects folder. No tabs, no context switching.</p>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <h3>Status at a glance</h3>
+        <p>Every repo's clean, dirty, ahead, behind, or diverged state surfaces as a colored dot in the tree.</p>
+      </div>
+      <div class="feature">
+        <h3>Hunk-level diffs</h3>
+        <p>Inspect what changed line-by-line before you commit. Staged and unstaged sections side by side.</p>
+      </div>
+      <div class="feature">
+        <h3>One-click staging</h3>
+        <p>Stage, unstage, or discard files individually or in bulk. Commit with <span class="kbd">⌘</span><span class="kbd">↵</span>.</p>
+      </div>
+      <div class="feature">
+        <h3>Branches without the dance</h3>
+        <p>List local and remote branches, create new ones, check out, delete, or merge — without leaving the app.</p>
+      </div>
+      <div class="feature">
+        <h3>Real git, real auth</h3>
+        <p>Network operations use your system git so SSH agents, credential helpers, and 2FA all just work.</p>
+      </div>
+      <div class="feature">
+        <h3>Stashes, made obvious</h3>
+        <p>Save, apply, pop, or drop stashes from a panel that doesn't pretend they don't exist.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="legend">
+  <div class="container">
+    <h2>Status indicators</h2>
+    <div class="dots">
+      <div class="dot-row"><span class="dot clean"></span>Clean<span class="dot-label">up to date</span></div>
+      <div class="dot-row"><span class="dot dirty"></span>Dirty<span class="dot-label">uncommitted</span></div>
+      <div class="dot-row"><span class="dot ahead"></span>Ahead<span class="dot-label">unpushed</span></div>
+      <div class="dot-row"><span class="dot behind"></span>Behind<span class="dot-label">unpulled</span></div>
+      <div class="dot-row"><span class="dot diverged"></span>Diverged<span class="dot-label">both</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="shots">
+  <div class="container">
+    <div class="shot">
+      <img src="assets/screenshot-diff.png" alt="Changes view: staged and unstaged files with an inline hunk-level diff">
+    </div>
+    <p class="shot-caption">The changes view: staged and unstaged files with hunk-level diffs.</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© 2026 Adam Wickwire · Apache 2.0</div>
+    <div class="footer-links">
+      <a href="getting-started.html">Docs</a>
+      <a href="faq.html">FAQ</a>
+      <a href="https://github.com/WalrusQuant/git-explorer">Source</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

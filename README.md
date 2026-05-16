@@ -2,10 +2,10 @@
 
 A macOS desktop app that shows git repos as a navigable folder tree. Built with Tauri v2, Svelte 5, and the git2 Rust crate.
 
-![Overview — repo status, remotes, recent commits](docs/screenshot.png)
+![Overview — repo status, remotes, recent commits](docs/assets/screenshot.png)
 *Overview: repo status, remotes, and recent commits.*
 
-![Changes — staged/unstaged files with inline diff](docs/screenshot-diff.png)
+![Changes — staged/unstaged files with inline diff](docs/assets/screenshot-diff.png)
 *Changes: staged/unstaged files with an inline diff view.*
 
 ## Install
