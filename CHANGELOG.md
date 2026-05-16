@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-05-16
+
 ### Changed
 - macOS bundle is now ad-hoc signed (`signingIdentity: "-"` in `tauri.conf.json`), so the "damaged" first-launch error no longer happens. Users still need to right-click → Open the first time, but `xattr -cr` is no longer required.
 
