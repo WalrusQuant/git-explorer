@@ -10,7 +10,7 @@ A macOS desktop app that shows git repos as a navigable folder tree. Built with 
 
 ## Install
 
-> **No releases yet.** The first release will appear on the [Releases page](https://github.com/WalrusQuant/git-explorer/releases) as `git-explorer-macos-aarch64.dmg` (Apple Silicon) and `git-explorer-macos-x86_64.dmg` (Intel).
+> **No releases yet.** The first release will appear on the [Releases page](https://github.com/WalrusQuant/git-explorer/releases) as `git-explorer-macos-aarch64.dmg` (Apple Silicon). Intel Macs are not supported in the binary release — build from source if needed.
 
 After downloading:
 

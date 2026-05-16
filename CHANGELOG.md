@@ -25,5 +25,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `tracing` for previously-silent error paths; honors `RUST_LOG` (default `warn`).
 
 ### Notes
-- macOS only. Both Apple Silicon and Intel will be supported in the first release.
-- First release will ship unsigned; right-click → Open the first time to bypass Gatekeeper.
+- macOS only, Apple Silicon (M1 and later). Intel Macs aren't supported in the binary release.
+- First release ships unsigned; right-click → Open the first time to bypass Gatekeeper.

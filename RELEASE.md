@@ -27,19 +27,17 @@ Three files must stay in lockstep:
 
 ## 2. Build artifacts
 
-**Targets:** macOS only, both architectures.
+**Target:** macOS, Apple Silicon only.
 
-- `aarch64-apple-darwin` (Apple Silicon — dominant)
-- `x86_64-apple-darwin` (Intel — fading but still relevant)
+- `aarch64-apple-darwin`
 
-Tauri's `bundle.macOS` already produces `.app` and `.dmg`. We'll publish both arch `.dmg` files. Skip universal binary — doubles app size for marginal convenience.
+Intel (`x86_64-apple-darwin`) was dropped from v0.1.0 after the cross-compile failed on `openssl-sys`. Apple Silicon has been the only Mac target since 2020; Intel users can build from source if needed.
 
-**Asset naming** (renamed in the release workflow so the download URLs stay stable):
+**Asset name** (renamed in the release workflow so the download URL stays stable):
 
 - `git-explorer-macos-aarch64.dmg`
-- `git-explorer-macos-x86_64.dmg`
 
-This lets the site link to `https://github.com/<user>/git-explorer/releases/latest/download/git-explorer-macos-aarch64.dmg` permanently.
+The site links to `https://github.com/<user>/git-explorer/releases/latest/download/git-explorer-macos-aarch64.dmg` permanently.
 
 ---
 
@@ -56,26 +54,26 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        target: [aarch64-apple-darwin, x86_64-apple-darwin]
     runs-on: macos-latest
+    env:
+      TARGET: aarch64-apple-darwin
+      ARCH: aarch64
     steps:
       - checkout
       - pnpm + node setup (same as ci.yml)
-      - rust toolchain + target add ${{ matrix.target }}
+      - rust toolchain
       - rust-cache scoped to src-tauri
       - pnpm install --frozen-lockfile
-      - pnpm tauri build --target ${{ matrix.target }}
-      - rename .dmg to git-explorer-macos-<arch>.dmg
+      - pnpm tauri build --target $TARGET
+      - rename .dmg to git-explorer-macos-aarch64.dmg
       - upload artifact
 
   release:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - download both artifacts
-      - softprops/action-gh-release@v2: create release, upload both .dmgs, auto-generate notes
+      - download artifact
+      - softprops/action-gh-release@v2: create draft release, upload .dmg, auto-generate notes
 ```
 
 **Auto-generated notes:** GitHub's `generate_release_notes: true` works fine for v0.1. Switch to CHANGELOG-extracted notes later if churn warrants.
@@ -122,7 +120,7 @@ docs/
 **Landing (`index.html`) sections:**
 
 1. Header: app name + nav (Docs, GitHub)
-2. Hero: tagline, hero screenshot, primary download button (links to `/releases/latest/download/git-explorer-macos-aarch64.dmg`), secondary Intel link below
+2. Hero: tagline, hero screenshot, single download button (links to `/releases/latest/download/git-explorer-macos-aarch64.dmg`)
 3. Gatekeeper callout: collapsible "First launch on macOS?" with the right-click trick
 4. Feature grid (3–5 cards): folder tree with status dots, hunk-level diff, staging UI, branch switcher, commit history
 5. Screenshots (2–3 images)

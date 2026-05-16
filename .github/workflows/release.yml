@@ -9,16 +9,11 @@ permissions:
 
 jobs:
   build:
-    name: Build (${{ matrix.arch }})
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - target: aarch64-apple-darwin
-            arch: aarch64
-          - target: x86_64-apple-darwin
-            arch: x86_64
+    name: Build (aarch64)
     runs-on: macos-latest
+    env:
+      TARGET: aarch64-apple-darwin
+      ARCH: aarch64
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
@@ -34,22 +29,22 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@stable
         with:
-          targets: ${{ matrix.target }}
+          targets: ${{ env.TARGET }}
 
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: src-tauri -> target
-          key: release-${{ matrix.target }}
+          key: release-${{ env.TARGET }}
 
       - name: Install frontend dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Tauri build
-        run: pnpm tauri build --target ${{ matrix.target }}
+        run: pnpm tauri build --target ${{ env.TARGET }}
 
       - name: Rename .dmg
         run: |
-          DMG_DIR="src-tauri/target/${{ matrix.target }}/release/bundle/dmg"
+          DMG_DIR="src-tauri/target/${{ env.TARGET }}/release/bundle/dmg"
           if [ ! -d "$DMG_DIR" ]; then
             echo "::error::Expected DMG dir not found: $DMG_DIR"
             exit 1
@@ -60,7 +55,7 @@ jobs:
             ls -la "$DMG_DIR"
             exit 1
           fi
-          DEST="$DMG_DIR/git-explorer-macos-${{ matrix.arch }}.dmg"
+          DEST="$DMG_DIR/git-explorer-macos-${{ env.ARCH }}.dmg"
           mv "$SRC" "$DEST"
           echo "DMG_PATH=$DEST" >> "$GITHUB_ENV"
           echo "Renamed: $SRC -> $DEST"
@@ -68,7 +63,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: git-explorer-macos-${{ matrix.arch }}
+          name: git-explorer-macos-${{ env.ARCH }}
           path: ${{ env.DMG_PATH }}
           if-no-files-found: error
           retention-days: 7
