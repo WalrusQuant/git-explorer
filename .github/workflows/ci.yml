@@ -42,8 +42,10 @@ jobs:
         run: cargo check --manifest-path src-tauri/Cargo.toml --all-targets
 
       - name: Rust tests
-        env:
-          HOME: ${{ runner.temp }}/test-home
         run: |
-          mkdir -p "$HOME"
-          cargo test --manifest-path src-tauri/Cargo.toml
+          TEST_HOME="${{ runner.temp }}/test-home"
+          mkdir -p "$TEST_HOME"
+          HOME="$TEST_HOME" \
+            RUSTUP_HOME="$HOME/.rustup" \
+            CARGO_HOME="$HOME/.cargo" \
+            cargo test --manifest-path src-tauri/Cargo.toml
