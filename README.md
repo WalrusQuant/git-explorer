@@ -8,54 +8,35 @@ A macOS desktop app that shows git repos as a navigable folder tree. Built with 
 ![Changes — staged/unstaged files with inline diff](docs/screenshot-diff.png)
 *Changes: staged/unstaged files with an inline diff view.*
 
-## Prerequisites
+## Install
 
-- **macOS** (primary target)
-- **Rust** — install via [rustup](https://rustup.rs/)
-- **pnpm** — `npm install -g pnpm`
-- **Xcode Command Line Tools** — `xcode-select --install`
+> **No releases yet.** The first release will appear on the [Releases page](https://github.com/WalrusQuant/git-explorer/releases) as `git-explorer-macos-aarch64.dmg` (Apple Silicon) and `git-explorer-macos-x86_64.dmg` (Intel).
 
-## Install Dependencies
+After downloading:
 
-```bash
-# Frontend dependencies
-pnpm install
+1. Open the `.dmg` and drag **Git Explorer** to `/Applications`.
+2. The app is **unsigned**, so the first launch will be blocked by Gatekeeper. **Right-click the app → Open** to bypass it once.
+3. On first launch you'll be asked to pick a root directory — point it at the folder containing your projects.
 
-# Rust dependencies are handled automatically by Cargo
-# when you run any tauri command
-```
+## Status indicators
 
-## Development
-
-```bash
-pnpm tauri dev
-```
-
-This starts the Vite dev server with HMR and compiles the Rust backend. The app window opens automatically.
-
-## Build
-
-```bash
-pnpm tauri build
-```
-
-Produces a macOS `.app` bundle in `src-tauri/target/release/bundle/macos/`.
-
-## Type Checking
-
-```bash
-pnpm check
-```
+| Color  | Meaning                        |
+|--------|--------------------------------|
+| Green  | Clean — no changes, up to date |
+| Yellow | Dirty — uncommitted changes    |
+| Blue   | Ahead of remote                |
+| Red    | Behind remote                  |
+| Orange | Diverged (both ahead & behind) |
 
 ## Configuration
 
-On first launch, the app prompts you to set a root directory path. This is saved to:
+Settings are stored at:
 
 ```
 ~/.config/git-explorer/config.json
 ```
 
-Example config:
+Currently a single field:
 
 ```json
 {
@@ -63,29 +44,45 @@ Example config:
 }
 ```
 
+## Building from source
+
+Prereqs:
+
+- macOS
+- Rust — install via [rustup](https://rustup.rs/)
+- pnpm — `npm install -g pnpm`
+- Xcode Command Line Tools — `xcode-select --install`
+
+Run the dev server:
+
+```bash
+pnpm install
+pnpm tauri dev
+```
+
+Produce a `.app` bundle:
+
+```bash
+pnpm tauri build
+```
+
+Type check + tests:
+
+```bash
+pnpm check
+cd src-tauri && cargo test
+```
+
 ## Architecture
 
-- **Rust backend** (`src-tauri/src/commands.rs`): All git operations via the `git2` crate
-  - `scan_directory` — walks directory tree, identifies git repos, fetches from remotes
-  - `get_repo_status` — branch, staged/unstaged/untracked counts, ahead/behind, remote URLs
-  - `get_commit_log` — recent commits with hash, message, author, timestamp
-  - `load_config` / `save_config` — persist settings to `~/.config/git-explorer/config.json`
+- **Rust backend** (`src-tauri/src/commands/`) — split per domain: `status`, `scan`, `staging`, `branches`, `commits`, `remote`, `stash`, `config`, `helpers`, `types`. Most operations use `git2`; network ops (`fetch`, `push`, `pull`, `merge`) shell out to the `git` CLI for credential/SSH-agent support and are cancellable.
+- **Svelte 5 frontend** (`src/`) — runes only (`$state`, `$derived`, `$effect`, `$props`), no stores. Top-level state lives in `App.svelte` and is passed down as props.
 
-- **Svelte 5 frontend** — runes only (`$state`, `$derived`, `$effect`, `$props`), no stores
-  - `App.svelte` — layout, state management, Tauri IPC
-  - `FolderTree.svelte` — expandable directory tree with status indicators
-  - `RepoDetail.svelte` — branch info, changes, commits, remotes, ahead/behind
-  - `SearchBar.svelte` — repo name filter
+For deeper architecture notes, see [CLAUDE.md](CLAUDE.md).
 
-## Status Indicators
+## Changelog
 
-| Color   | Meaning                         |
-|---------|---------------------------------|
-| Green   | Clean — no changes, up to date  |
-| Yellow  | Dirty — uncommitted changes     |
-| Blue    | Ahead of remote                 |
-| Red     | Behind remote                   |
-| Orange  | Diverged (both ahead & behind)  |
+See [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
