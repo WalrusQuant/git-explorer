@@ -107,29 +107,29 @@ pub fn get_commit_details(path: String, oid: String) -> Result<CommitDetail, Str
     let current_file_idx = std::cell::RefCell::new(0usize);
     let delta_counter = std::cell::RefCell::new(0usize);
 
-    diff2
-        .foreach(
-            &mut |_delta, _progress| {
-                let idx = *delta_counter.borrow();
-                *current_file_idx.borrow_mut() = idx;
-                *delta_counter.borrow_mut() = idx + 1;
-                true
-            },
-            None,
-            None,
-            Some(&mut |_delta, _hunk, line| {
-                let idx = *current_file_idx.borrow();
-                if idx < file_additions.len() {
-                    match line.origin() {
-                        '+' => file_additions[idx] += 1,
-                        '-' => file_deletions[idx] += 1,
-                        _ => {}
-                    }
+    if let Err(err) = diff2.foreach(
+        &mut |_delta, _progress| {
+            let idx = *delta_counter.borrow();
+            *current_file_idx.borrow_mut() = idx;
+            *delta_counter.borrow_mut() = idx + 1;
+            true
+        },
+        None,
+        None,
+        Some(&mut |_delta, _hunk, line| {
+            let idx = *current_file_idx.borrow();
+            if idx < file_additions.len() {
+                match line.origin() {
+                    '+' => file_additions[idx] += 1,
+                    '-' => file_deletions[idx] += 1,
+                    _ => {}
                 }
-                true
-            }),
-        )
-        .unwrap_or(());
+            }
+            true
+        }),
+    ) {
+        tracing::warn!(commit = %oid, "diff iteration failed, line counts may be 0: {}", err);
+    }
 
     for (i, stat) in file_stats.iter_mut().enumerate() {
         stat.additions = file_additions[i];

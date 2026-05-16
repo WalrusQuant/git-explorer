@@ -123,11 +123,17 @@ fn compute_remote_info(
     if do_fetch {
         if let Ok(mut remote) = repo.find_remote("origin") {
             let mut fetch_opts = make_fetch_options();
-            let _ = remote.fetch(
+            if let Err(err) = remote.fetch(
                 &["refs/heads/*:refs/remotes/origin/*"],
                 Some(&mut fetch_opts),
                 None,
-            );
+            ) {
+                tracing::warn!(
+                    repo = ?repo.path(),
+                    "background fetch from origin failed: {}",
+                    err
+                );
+            }
         }
     }
 
