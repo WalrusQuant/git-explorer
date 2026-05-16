@@ -45,15 +45,10 @@
       </ol>
 
       <h2>First launch</h2>
-      <p>The first release is <strong>unsigned</strong>. macOS Gatekeeper will refuse a normal double-click with "Git Explorer can't be opened because it is from an unidentified developer."</p>
-      <p>To get past it once:</p>
-      <ol>
-        <li>Open <code>/Applications</code> in Finder.</li>
-        <li><strong>Right-click</strong> (or Control-click) on <em>Git Explorer</em> and choose <strong>Open</strong>.</li>
-        <li>Click <strong>Open</strong> in the confirmation dialog.</li>
-      </ol>
-      <p>From then on, a normal double-click works. If you'd rather skip the right-click step, run this once in Terminal:</p>
-<pre><code>xattr -d com.apple.quarantine /Applications/Git\ Explorer.app</code></pre>
+      <p>The <strong>v0.1.0</strong> build is fully unsigned. macOS Ventura and later refuse to open it with <em>"Git Explorer is damaged and can't be opened. You should move it to the Trash."</em> Right-click → Open does <strong>not</strong> work for a fully unsigned app — you need to remove the quarantine flag in Terminal:</p>
+<pre><code>xattr -cr /Applications/Git\ Explorer.app</code></pre>
+      <p>Run that once, then double-click the app normally. macOS will ask you to confirm opening an app from an unidentified developer — click <strong>Open</strong>. From then on it launches like any other app.</p>
+      <p class="callout" style="margin-top:1rem">Releases from <strong>v0.1.1</strong> onward will be ad-hoc signed, so the quarantine step won't be needed — a normal right-click → Open is enough.</p>
 
       <h2>Pick a root directory</h2>
       <p>On first launch the app will ask for a <strong>root directory</strong>. Point it at the folder that contains your projects — typically <code>~/Code</code>, <code>~/Projects</code>, or similar.</p>

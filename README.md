@@ -10,12 +10,16 @@ A macOS desktop app that shows git repos as a navigable folder tree. Built with 
 
 ## Install
 
-> **No releases yet.** The first release will appear on the [Releases page](https://github.com/WalrusQuant/git-explorer/releases) as `git-explorer-macos-aarch64.dmg` (Apple Silicon). Intel Macs are not supported in the binary release — build from source if needed.
-
-After downloading:
+Download `git-explorer-macos-aarch64.dmg` from the [latest release](https://github.com/WalrusQuant/git-explorer/releases/latest) (Apple Silicon only — Intel Macs need to build from source).
 
 1. Open the `.dmg` and drag **Git Explorer** to `/Applications`.
-2. The app is **unsigned**, so the first launch will be blocked by Gatekeeper. **Right-click the app → Open** to bypass it once.
+2. **Remove the quarantine flag.** The app isn't signed, so macOS will refuse to launch it ("Git Explorer is damaged and can't be opened") until you run this **once** in Terminal:
+
+   ```bash
+   xattr -cr /Applications/Git\ Explorer.app
+   ```
+
+   Then double-click normally. (Releases from v0.1.1 onward are ad-hoc signed and won't need this step.)
 3. On first launch you'll be asked to pick a root directory — point it at the folder containing your projects.
 
 ## Status indicators

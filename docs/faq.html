@@ -36,7 +36,8 @@
       <h1>FAQ</h1>
 
       <h2>Why is the app unsigned?</h2>
-      <p>Apple's Developer Program costs $99/year and is required for code signing and notarization. For an early-stage personal project, that's not justified yet. The trade-off is the one-time right-click → Open dance on first launch. Future releases will be signed once usage warrants it.</p>
+      <p>Apple's Developer Program costs $99/year and is required for proper code signing and notarization. For an early-stage personal project, that's not justified yet.</p>
+      <p>From v0.1.1 onward the release is <strong>ad-hoc signed</strong>, which is free and gets you past the "damaged" error so a normal right-click → Open works. The <strong>v0.1.0</strong> build is fully unsigned — you'll need to remove the quarantine flag manually (see <a href="getting-started.html#first-launch">Getting started</a>).</p>
 
       <h2>Why macOS only?</h2>
       <p>It's the platform the author uses every day. Tauri makes cross-platform builds possible in principle, but each target adds its own packaging, testing, and support overhead. Windows and Linux are not planned right now.</p>
