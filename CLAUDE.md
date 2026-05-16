@@ -9,8 +9,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm check` — TypeScript + Svelte type check (`svelte-check`)
 - `pnpm dev` / `pnpm build` — frontend only; usually invoked via `tauri` rather than directly
 - `cargo check` / `cargo build` — run from `src-tauri/` for Rust-only checks without launching the app
+- `cargo test` — run from `src-tauri/`; runs unit tests in `commands.rs` and integration tests in `src-tauri/tests/integration.rs`
 
-There is no test suite and no linter configured — `pnpm check` is the only automated verification step.
+No frontend tests or linter are configured — `pnpm check` and `cargo test` are the automated verification steps.
 
 ## Architecture
 

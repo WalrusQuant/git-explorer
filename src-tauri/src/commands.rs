@@ -1254,3 +1254,63 @@ pub fn get_commit_details(path: String, oid: String) -> Result<CommitDetail, Str
         files: file_stats,
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn branch_name_accepts_valid_names() {
+        for name in [
+            "main",
+            "master",
+            "feature/foo",
+            "feature/foo/bar",
+            "v1.0",
+            "release-2026",
+            "user/adam/wip",
+            "fix_typo",
+        ] {
+            assert!(is_valid_branch_name(name), "expected valid: {}", name);
+        }
+    }
+
+    #[test]
+    fn branch_name_rejects_invalid_names() {
+        let bad = [
+            "",
+            ".hidden",
+            "/leading",
+            "-dash",
+            "trailing.",
+            "trailing/",
+            "double..dot",
+            "ref@{0}",
+            "has space",
+            "has~tilde",
+            "has^caret",
+            "has:colon",
+            "has?q",
+            "has*star",
+            "has[bracket",
+            "has\\back",
+            "has\0null",
+        ];
+        for name in bad {
+            assert!(!is_valid_branch_name(name), "expected invalid: {:?}", name);
+        }
+    }
+
+    #[test]
+    fn delta_status_maps_each_variant() {
+        assert_eq!(delta_status_str(git2::Delta::Added), "added");
+        assert_eq!(delta_status_str(git2::Delta::Deleted), "deleted");
+        assert_eq!(delta_status_str(git2::Delta::Modified), "modified");
+        assert_eq!(delta_status_str(git2::Delta::Renamed), "renamed");
+        assert_eq!(delta_status_str(git2::Delta::Copied), "copied");
+        assert_eq!(delta_status_str(git2::Delta::Untracked), "untracked");
+        assert_eq!(delta_status_str(git2::Delta::Unreadable), "unreadable");
+        assert_eq!(delta_status_str(git2::Delta::Ignored), "other");
+        assert_eq!(delta_status_str(git2::Delta::Unmodified), "other");
+    }
+}
