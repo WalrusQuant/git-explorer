@@ -31,6 +31,8 @@ Download `git-explorer-macos-aarch64.dmg` from the [latest release](https://gith
 | Blue   | Ahead of remote                |
 | Red    | Behind remote                  |
 | Orange | Diverged (both ahead & behind) |
+| Gray   | No remote configured           |
+| Dark red | Error — repo could not be read |
 
 ## Configuration
 

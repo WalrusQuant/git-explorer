@@ -36,7 +36,7 @@ pub fn get_commit_log(path: String, limit: u32) -> Result<Vec<Commit>, String> {
         };
 
         let hash = commit.id().to_string();
-        let short_hash = hash[..7].to_string();
+        let short_hash = hash.get(..7).unwrap_or(&hash).to_string();
         let full_message = commit.message().unwrap_or("");
         let message = full_message.lines().next().unwrap_or("").to_string();
         let author = commit.author().name().unwrap_or("(unknown)").to_string();

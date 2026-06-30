@@ -62,7 +62,9 @@
         await loadDiff(filePath, true);
         selectedStaged = true;
       }
-    } catch {}
+    } catch (e) {
+      onToast(String(e), 'error');
+    }
   }
 
   async function handleUnstage(filePath: string) {
@@ -73,7 +75,9 @@
       if (selectedFile === filePath && selectedStaged === true) {
         selectedStaged = false;
       }
-    } catch {}
+    } catch (e) {
+      onToast(String(e), 'error');
+    }
   }
 
   async function handleStageAll() {

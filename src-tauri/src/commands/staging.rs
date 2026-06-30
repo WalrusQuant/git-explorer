@@ -1,5 +1,6 @@
-use super::helpers::delta_status_str;
+use super::helpers::{delta_status_str, run_git_cancellable};
 use super::types::{DiffLine, FileChange, FileDiff, HunkDiff};
+use super::AppState;
 use std::path::{Path, PathBuf};
 
 #[tauri::command]
@@ -282,19 +283,11 @@ pub fn git_commit(path: String, message: String) -> Result<String, String> {
 }
 
 #[tauri::command]
-pub fn discard_file(path: String, file_path: String) -> Result<(), String> {
-    let result = std::process::Command::new("git")
-        .arg("-C")
-        .arg(&path)
-        .arg("checkout")
-        .arg("HEAD")
-        .arg("--")
-        .arg(&file_path)
-        .output();
-
-    match result {
-        Ok(output) if output.status.success() => Ok(()),
-        Ok(output) => Err(String::from_utf8_lossy(&output.stderr).trim().to_string()),
-        Err(e) => Err(format!("Failed to run git: {}", e)),
-    }
+pub fn discard_file(
+    path: String,
+    file_path: String,
+    state: tauri::State<'_, AppState>,
+) -> Result<(), String> {
+    run_git_cancellable(&path, &["checkout", "HEAD", "--", &file_path], &state)?;
+    Ok(())
 }
